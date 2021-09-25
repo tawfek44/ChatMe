@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".ui.fragments.AuthenticationFragment"
+    tools:viewBindingIgnore="true"
+    >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_120sdp"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:src="@drawable/ic_messenger"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Welcome to ChatApp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_22ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:singleLine="true"
+        android:text="Cross-platform mobile messaging "
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        android:fontFamily="casual"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="casual"
+        android:text="with friends all over the world"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <LinearLayout
+        android:id="@+id/verification_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:padding="@dimen/_5sdp"
+        >
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/country_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:ccp_showFlag="false"
+            app:ccp_autoFormatNumber="true"
+            app:ccpDialog_showFlag="false"
+            android:layout_gravity="center"
+            />
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            />
+
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:hint="Your Phone Number"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:textSize="@dimen/_15ssp"
+            android:backgroundTint="@color/white"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:src="@drawable/ic_baseline_arrow_forward_24"
+        app:fabSize="auto"
+        app:layout_constraintEnd_toEndOf="@+id/verification_layout"
+        app:layout_constraintStart_toStartOf="@+id/verification_layout"
+        app:layout_constraintTop_toBottomOf="@+id/verification_layout" />
+
+    <ProgressBar
+        android:id="@+id/loading_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/floatingActionButton1"
+        app:layout_constraintStart_toStartOf="@+id/floatingActionButton1"
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton1"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
