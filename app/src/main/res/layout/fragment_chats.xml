@@ -5,27 +5,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HomeActivity">
+    tools:context=".ui.fragments.ChatsFragment"
+    >
 
-    <com.ismaeldivita.chipnavigation.ChipNavigationBar
-        android:id="@+id/nav_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:cnb_menuResource="@menu/nav_bar_menu"
-        android:background="@drawable/round_corner"
-        android:elevation="@dimen/_2sdp"
-        android:layout_margin="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias=".95"
+        app:layout_constraintVertical_bias=".85"
+        android:backgroundTint="@color/Chats"
+        android:src="@drawable/chat_icon"
+        app:borderWidth="0dp"
         />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/container_fr"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chats_rec_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

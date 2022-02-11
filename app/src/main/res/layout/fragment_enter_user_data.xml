@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.enterUserDataFragment"
+    android:background="@drawable/gradient_background">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_400sdp"
+        android:layout_margin="@dimen/_20sdp"
+        android:background="@drawable/background_user_data_corner"
+        android:elevation="@dimen/_3sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_160sdp"
+            android:clickable="false"
+            android:hint="Name"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="outline"
+            app:boxCollapsedPaddingTop="0dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:endIconCheckable="false"
+            app:endIconMode="clear_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_img1"
+            app:startIconDrawable="@drawable/ic_baseline_person_24"
+            app:startIconTint="#6200EE">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_input_edittext_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_120sdp"
+            android:hint="About"
+            android:isScrollContainer="false"
+            android:splitMotionEvents="false"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="outline"
+            app:counterEnabled="false"
+            app:endIconMode="clear_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/text_input_layout_name"
+            app:layout_constraintStart_toStartOf="@+id/text_input_layout_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_name"
+            app:startIconCheckable="false"
+            app:startIconDrawable="@drawable/about"
+            app:startIconTint="#6200EE"
+            app:placeholderText="Heey Im using ChatMe">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_input_edittext_about"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/get_image_from_gallery1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_90sdp"
+            android:backgroundTint="@color/light_green"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/add_photo1"
+            app:borderWidth="0dp"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toBottomOf="@+id/user_img1"
+            app:layout_constraintEnd_toEndOf="@+id/user_img1"
+            app:layout_constraintStart_toStartOf="@+id/user_img1"
+            tools:ignore="ImageContrastCheck,ImageContrastCheck" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_img1"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/user_enter_data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck,ImageContrastCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_go_chats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_40sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout_about"
+            android:src="@drawable/ic_baseline_arrow_forward_24"/>
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btn_go_chats"
+            app:layout_constraintStart_toStartOf="@+id/btn_go_chats"
+            app:layout_constraintTop_toBottomOf="@+id/btn_go_chats" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

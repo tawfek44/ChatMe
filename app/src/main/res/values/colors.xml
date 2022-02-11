@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_green">#6ECB63</color>
 
+    
+    <color name="Chats" >#C9379D</color>
+    <color name="Calls">#5B37B7</color>
+    <color name="Profile">#1194AA</color>
 </resources>

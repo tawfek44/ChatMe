@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import androidx.viewpager.widget.ViewPager
 import com.example.chatme.MainActivity
 import com.example.chatme.R
 import com.example.chatme.databinding.ActivitySplashBinding
@@ -57,8 +58,6 @@ class AuthenticationFragment : Fragment() {
 
             }
         })
-
-
         return view
     }
 
@@ -104,6 +103,7 @@ class AuthenticationFragment : Fragment() {
 
             override fun onVerificationFailed(e: FirebaseException) {
                 Toast.makeText(context ,e.message,Toast.LENGTH_LONG).show()
+                binding.loadingIcon.visibility=View.GONE
             }
 
             override fun onCodeSent(

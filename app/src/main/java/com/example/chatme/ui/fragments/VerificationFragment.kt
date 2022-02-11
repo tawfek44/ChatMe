@@ -21,6 +21,7 @@ class VerificationFragment : Fragment() {
 
    private  lateinit var binding:FragmentVerificationBinding
    private  var auth : FirebaseAuth= FirebaseAuth.getInstance()
+   private var userDataFragment = enterUserDataFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -74,7 +75,10 @@ class VerificationFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                          val user = task.result?.user
                     binding.loading.visibility=View.GONE
-                    startActivity(Intent(activity?.baseContext ,HomeActivity::class.java))
+
+                   // startActivity(Intent(activity?.baseContext ,HomeActivity::class.java))
+                  //  activity?.finish()
+                    fragmentManager?.beginTransaction()?.replace(R.id.fragment_contaoner,userDataFragment)?.commit()
 
                 } else {
                     // Sign in failed, display a message and update the UI

@@ -33,8 +33,10 @@ class SplashFragment : Fragment() {
         {
             Log.d("tag", "onCreateView: $currentUser")
             if(currentUser==null) fragmentManager?.beginTransaction()?.replace(R.id.fragment_contaoner,AuthenticationFragment())?.commit()
-            else
-                startActivity(Intent(activity?.applicationContext,HomeActivity::class.java))
+            else {
+                startActivity(Intent(activity?.applicationContext, HomeActivity::class.java))
+                activity?.finish()
+            }
         }
 
         return view
