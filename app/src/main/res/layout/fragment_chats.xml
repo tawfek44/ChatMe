@@ -9,6 +9,7 @@
     >
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/go_to_names"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,7 +21,7 @@
         android:backgroundTint="@color/Chats"
         android:src="@drawable/chat_icon"
         app:borderWidth="0dp"
-        />
+        android:contentDescription="@string/standard_message" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chats_rec_view"
