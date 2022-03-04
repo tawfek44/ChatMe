@@ -26,17 +26,20 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 import java.util.jar.Manifest
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.math.log
 
 class NamesActivity : AppCompatActivity() {
     lateinit var binding: ActivityNamesBinding
     var arr =ArrayList<PhoneUtility>();
+    var contactsMap=HashMap<String,Int>();
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityNamesBinding.inflate(layoutInflater)
@@ -74,9 +77,7 @@ class NamesActivity : AppCompatActivity() {
             if (cursor?.count!! > 0) {
                 while (cursor.moveToNext()) {
                     val id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
-
-                    val name =
-                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                    val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
                     val uriPhone = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
                     val selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " =?"
                     val phoneCursor =
@@ -87,22 +88,34 @@ class NamesActivity : AppCompatActivity() {
                         number = ArabicNumberToEnglishNumber(number)
                         if (number[0] != '+')
                             number = "+2$number"
-                        val phone = PhoneUtility("", number, name, "")
-                        filterContacts(number.toString())
+                        if(!contactsMap.containsKey(number)) {
+                            contactsMap[number] = 0
+                            filterContacts(number.toString())
+                        }
                     }
                 }
 
             }
+            contactsMap.clear()
             cursor.close()
         }
     }
 
     private fun filterContacts(number:String) {
-        FirebaseAuth.getInstance().uid?.let {
-            FirebaseDatabase.getInstance().reference.child("Users").child(it).orderByChild("Number").
+            FirebaseDatabase.getInstance().reference.child("Users").orderByChild("Number").
             equalTo(number).addListenerForSingleValueEvent(object:ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    Log.d("tag2", "onDataChange: ${snapshot.value}")
+                    if(snapshot.children.count()>0) {
+                        var img=snapshot.children.elementAt(0).child("imageUrl").value
+                        var number=snapshot.children.elementAt(0).child("Number").value
+                        var name=snapshot.children.elementAt(0).child("Name").value
+                        var status=snapshot.children.elementAt(0).child("About").value
+                        val id=snapshot.children.elementAt(0).child("UID").value
+                        arr.add(PhoneUtility(img.toString(),number.toString(),name.toString(),status.toString(),id.toString()))
+                        GlobalScope.launch(Dispatchers.Main) {
+                            showContacts()
+                        }
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -110,7 +123,8 @@ class NamesActivity : AppCompatActivity() {
                 }
 
             })
-        }
+
+
     }
 
     private fun showContacts() {
@@ -149,3 +163,4 @@ class NamesActivity : AppCompatActivity() {
     }
 
 }
+

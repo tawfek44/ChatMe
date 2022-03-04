@@ -4,13 +4,22 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.encoders.annotations.Encodable;
 
 public class PhoneUtility {
-    private String number,name,status,image;
+    private String number,name,status,image,ID;
 
-    public PhoneUtility(String image,String number, String name,String status) {
+    public PhoneUtility(String image,String number, String name,String status,String ID) {
         this.image=image;
         this.number = number;
         this.name = name;
         this.status=status;
+        this.ID=ID;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getStatus() {
