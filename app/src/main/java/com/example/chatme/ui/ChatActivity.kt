@@ -3,17 +3,12 @@ package com.example.chatme.ui
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
-import androidx.core.view.get
-import androidx.core.view.size
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.chatme.classes.MessageDetails
-import com.example.chatme.classes.adapters.contactsAdapter
 import com.example.chatme.classes.adapters.messageAdapter
 import com.example.chatme.databinding.ActivityChatBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +21,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+import kotlin.collections.elementAt
+import kotlin.collections.forEach
+import kotlin.collections.set
+
 
 class ChatActivity : AppCompatActivity() {
     lateinit var binding: ActivityChatBinding

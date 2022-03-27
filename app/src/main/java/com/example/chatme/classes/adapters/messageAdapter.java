@@ -61,7 +61,7 @@ public class messageAdapter extends RecyclerView.Adapter{
             return 0;
         else return 1;
     }
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView messageText,messageTime;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
