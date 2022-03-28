@@ -1,8 +1,12 @@
 package com.example.chatme.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -16,6 +20,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -30,6 +36,8 @@ import kotlin.collections.set
 
 class ChatActivity : AppCompatActivity() {
     lateinit var binding: ActivityChatBinding
+     private lateinit var uri: Uri
+    var storageReference: StorageReference =FirebaseStorage.getInstance().reference.child("chatImages")
     var arr=ArrayList<MessageDetails>()
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +53,61 @@ class ChatActivity : AppCompatActivity() {
                 binding.chatTextMessage.text.clear()
             }
         }
+        binding.sendImageButton.setOnClickListener{
+            getImageFromMobile()
+
+        }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun uploadImageToFireStorage(imgUri:Uri) {
+        val localTime: LocalTime = LocalTime.now()
+        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
+        val xx=HashMap<String,String>();
+        xx["MessageTime"]=localTime.format(dateTimeFormatter);
+        xx["SenderID"]=FirebaseAuth.getInstance().uid.toString()
+        xx["MessageID"]=FirebaseDatabase.getInstance().reference.push().key.toString();
+        xx["MessageType"]="image"
+        val imgName=storageReference.child("image"+imgUri.lastPathSegment)
+        imgName.putFile(imgUri).addOnSuccessListener {
+            imgName.downloadUrl.addOnCompleteListener {
+                xx["Message"]=it.result.toString();
+                FirebaseAuth.getInstance().uid?.let { it1 ->
+                    FirebaseDatabase.getInstance().reference.child("ChatList").child(it1).
+                    child(intent.getStringExtra("UID").toString()).child(xx["MessageID"].toString())
+                        .setValue(xx)
+                }
+
+
+                FirebaseAuth.getInstance().uid?.let { it1 ->
+                    FirebaseDatabase.getInstance().reference.child("ChatList").
+                    child(intent.getStringExtra("UID").toString()).
+                    child(it1).child(xx["MessageID"].toString())
+                        .setValue(xx)
+                }
+
+            }
+        }
+
+    }
+
+    private fun getImageFromMobile() {
+        val intent=Intent();
+        intent.type="image/*"
+        intent.action=Intent.ACTION_GET_CONTENT
+
+        startActivityForResult(intent,100)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==100 && resultCode== RESULT_OK && data!=null && data.data!=null){
+            uri = data?.data!!
+            uploadImageToFireStorage(uri)
+
+        }
+    }
     private fun readMessagesFromFirebase() {
         arr.clear()
         GlobalScope.launch (Dispatchers.IO){
@@ -56,8 +117,10 @@ class ChatActivity : AppCompatActivity() {
                         val mID = it.children.elementAt(1).value
                         val mText = it.children.elementAt(0).value
                         val mTime = it.children.elementAt(2).value
-                        val sID = it.children.elementAt(3).value
-                        arr.add(MessageDetails(mText.toString(), mID.toString(), mTime.toString(), sID.toString()))
+                        val mType = it.children.elementAt(3).value
+                        val sID = it.children.elementAt(4).value
+                        /////////////////////////
+                        arr.add(MessageDetails(mText.toString(), mID.toString(), mTime.toString(), sID.toString(),mType.toString()))
 
                     }
                 }
@@ -104,7 +167,8 @@ class ChatActivity : AppCompatActivity() {
         x["MessageTime"]=localTime.format(dateTimeFormatter);
         x["SenderID"]=FirebaseAuth.getInstance().uid.toString()
         x["MessageID"]=FirebaseDatabase.getInstance().reference.push().key.toString();
-        arr.add(MessageDetails(x["Message"],x["MessageID"],x["MessageTime"],x["SenderID"]))
+        x["MessageType"]="text"
+        arr.add(MessageDetails(x["Message"],x["MessageID"],x["MessageTime"],x["SenderID"],x["MessageType"]))
         FirebaseAuth.getInstance().uid?.let {
             FirebaseDatabase.getInstance().reference.child("ChatList").child(it).child(intent.getStringExtra("UID").toString())
                 .child(x["MessageID"].toString()).setValue(x)
