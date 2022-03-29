@@ -1,14 +1,15 @@
 package com.example.chatme.classes;
 
 public class MessageDetails {
-    private String messageText,MessageID,MessageTime,senderID,messageType;
+    private String messageText,MessageID,MessageTime,senderID,messageType,isSeen;
 
-    public MessageDetails(String messageText, String messageID, String messageTime, String senderID, String messageType) {
+    public MessageDetails(String messageText, String messageID, String messageTime, String senderID, String messageType, String isSeen) {
         this.messageText = messageText;
         MessageID = messageID;
         MessageTime = messageTime;
         this.senderID = senderID;
         this.messageType = messageType;
+        this.isSeen = isSeen;
     }
 
     public String getMessageText() {
@@ -49,5 +50,13 @@ public class MessageDetails {
 
     public void setMessageType(String messageType) {
         this.messageType = messageType;
+    }
+
+    public String getIsSeen() {
+        return isSeen;
+    }
+
+    public void setIsSeen(String isSeen) {
+        this.isSeen = isSeen;
     }
 }

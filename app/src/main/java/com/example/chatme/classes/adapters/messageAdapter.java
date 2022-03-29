@@ -54,9 +54,15 @@ public class messageAdapter extends RecyclerView.Adapter{
             v2.messageT.setText(message.get(position).getMessageText());
             v2.messageTi.setText(message.get(position).getMessageTime());
         }
+        else if(holder.getItemViewType()==11){
+            ImageViewHolder2 ivh=(ImageViewHolder2)holder;
+            Glide.with(context).load(Uri.parse(message.get(position).getMessageText())).into(ivh.im2);
+            ((ImageViewHolder2) holder).tv2.setText(message.get(position).getMessageTime());
+        }
         else{
             ImageViewHolder ivh=(ImageViewHolder)holder;
             Glide.with(context).load(Uri.parse(message.get(position).getMessageText())).into(ivh.im);
+            ((ImageViewHolder) holder).tv1.setText(message.get(position).getMessageTime());
         }
     }
 
@@ -66,13 +72,21 @@ public class messageAdapter extends RecyclerView.Adapter{
     }
     @Override
     public int getItemViewType(int position) {
+        int res=1000;
         if(message.get(position).getSenderID().equals(FirebaseAuth.getInstance().getUid())) {
             if(message.get(position).getMessageType().equals("text"))
-                return 0;
+                res= 0;
             else
-                return -1; // images
+                 res = -1; // images from me
         }
-        else return 1;
+        else if(!message.get(position).getSenderID().equals(FirebaseAuth.getInstance().getUid())){
+            if(message.get(position).getMessageText().equals("text"))
+            res = 1;
+            else
+                res = 11; // images not from me
+        }
+        return res;
+
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView messageText,messageTime;
@@ -94,9 +108,26 @@ public class messageAdapter extends RecyclerView.Adapter{
 
     public class ImageViewHolder extends RecyclerView.ViewHolder {
         private ImageView im;
+        private TextView tv1;
+        private ImageView imTick1;
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             im=itemView.findViewById(R.id.image_message);
+            tv1=itemView.findViewById(R.id.image_message_time);
+            imTick1=itemView.findViewById(R.id.image_tick);
+        }
+    }
+
+
+    public class ImageViewHolder2 extends RecyclerView.ViewHolder {
+        private ImageView im2;
+        private TextView tv2;
+        private ImageView imTick2;
+        public ImageViewHolder2(@NonNull View itemView) {
+            super(itemView);
+            im2=itemView.findViewById(R.id.image_message2);
+            tv2=itemView.findViewById(R.id.image_message_time2);
+            imTick2=itemView.findViewById(R.id.image_tick2);
         }
     }
 }

@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="developer_name">Developer : Tawfik Hisham</string>
+
+    <string name="app_id">7f4be4da8ffc4f6fb082793395aa5f34</string>
+    <string name="agora_token">0067f4be4da8ffc4f6fb082793395aa5f34IAB5VgoxZdM07XmyY8ZMbouH7mG4948jcts7DlSoDapHYACAvGwAAAAAEAAJmhJvuqVDYgEAAQC7pUNi</string>
 </resources>

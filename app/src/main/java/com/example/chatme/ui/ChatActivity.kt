@@ -55,7 +55,6 @@ class ChatActivity : AppCompatActivity() {
         }
         binding.sendImageButton.setOnClickListener{
             getImageFromMobile()
-
         }
     }
 
@@ -68,6 +67,7 @@ class ChatActivity : AppCompatActivity() {
         xx["SenderID"]=FirebaseAuth.getInstance().uid.toString()
         xx["MessageID"]=FirebaseDatabase.getInstance().reference.push().key.toString();
         xx["MessageType"]="image"
+        xx["isSeen"]="false"
         val imgName=storageReference.child("image"+imgUri.lastPathSegment)
         imgName.putFile(imgUri).addOnSuccessListener {
             imgName.downloadUrl.addOnCompleteListener {
@@ -120,7 +120,7 @@ class ChatActivity : AppCompatActivity() {
                         val mType = it.children.elementAt(3).value
                         val sID = it.children.elementAt(4).value
                         /////////////////////////
-                        arr.add(MessageDetails(mText.toString(), mID.toString(), mTime.toString(), sID.toString(),mType.toString()))
+                        arr.add(MessageDetails(mText.toString(), mID.toString(), mTime.toString(), sID.toString(),mType.toString(),"false"))
 
                     }
                 }
@@ -168,7 +168,8 @@ class ChatActivity : AppCompatActivity() {
         x["SenderID"]=FirebaseAuth.getInstance().uid.toString()
         x["MessageID"]=FirebaseDatabase.getInstance().reference.push().key.toString();
         x["MessageType"]="text"
-        arr.add(MessageDetails(x["Message"],x["MessageID"],x["MessageTime"],x["SenderID"],x["MessageType"]))
+        x["isSeen"]="false"
+        arr.add(MessageDetails(x["Message"],x["MessageID"],x["MessageTime"],x["SenderID"],x["MessageType"],x["isSeen"]))
         FirebaseAuth.getInstance().uid?.let {
             FirebaseDatabase.getInstance().reference.child("ChatList").child(it).child(intent.getStringExtra("UID").toString())
                 .child(x["MessageID"].toString()).setValue(x)
