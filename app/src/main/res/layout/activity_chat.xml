@@ -41,11 +41,11 @@
             android:background="?android:attr/selectableItemBackground"
             android:src="@drawable/telephone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView4"
+            app:layout_constraintEnd_toStartOf="@+id/video_Call_Icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/video_Call_Icon"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_gravity="center"

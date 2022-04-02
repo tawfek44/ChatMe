@@ -56,6 +56,10 @@ class ChatActivity : AppCompatActivity() {
         binding.sendImageButton.setOnClickListener{
             getImageFromMobile()
         }
+
+        binding.videoCallIcon.setOnClickListener{
+            startActivity(Intent(applicationContext,VedioCallActivity::class.java))
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

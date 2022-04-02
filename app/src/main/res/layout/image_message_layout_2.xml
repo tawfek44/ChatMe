@@ -47,7 +47,6 @@
         android:layout_width="@dimen/_10sdp"
         android:layout_height="@dimen/_10sdp"
         android:src="@drawable/tick"
-        app:layout_constraintBottom_toBottomOf="+id/image_message_time2"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout6"
         app:layout_constraintHorizontal_bias=".03"
         app:layout_constraintStart_toEndOf="@+id/image_message_time2"
